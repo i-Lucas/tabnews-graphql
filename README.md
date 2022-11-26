@@ -20,7 +20,7 @@ Ajudará no desenvolvimento.
 
 Começe seu projeto instalando os pacotes:
 
-<img src="https://i.imgur.com/i45xZs6.png" /><br />
+<img src="https://i.imgur.com/v0MVq3V.png" /><br />
 
 O pacote **apollo-server-core** não é necessário para rodar o projeto, será útil aqui para utilizarmos o plugin *GraphQLPlayground*.
 
