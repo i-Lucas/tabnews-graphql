@@ -1,8 +1,8 @@
 <h1>Bem vindo</h1>
 
-Olá pessoal, me chamo Lucas Emmanuel e gostaria de compartilhar com vocês um pouco do meu conhecimento em GraphQL. Esse artigo tem como objetivo ser um <b><i>quickly start</i></b> sobre como construir 'sua primeira api' com GraphQL.
+Olá pessoal, me chamo Lucas e gostaria de compartilhar com vocês um pouco do meu conhecimento em GraphQL. O objetivo desse artigo é ser um <b><i>quickly start</i></b> sobre como construir 'sua primeira api' com GraphQL.
 
-Lembrando que nem de longe isso se trata de uma documentação, caso queira se aprofundar no assunto recomendo ler a <a href="https://graphql.org/learn/">documentação oficial</a>
+Lembrando que não se trata de uma documentação, caso queira se aprofundar recomendo ler a <a href="https://graphql.org/learn/">documentação oficial</a>
 
 <h1>Pra começar, o que é GraphQL ?</h1>
 
@@ -10,11 +10,11 @@ Resumidamente, o GraphQL é uma linguagem de consulta cuja prioridade é fornece
 
 <h1>Antes de começar</h1>
 
-Eu vou considerar que você já está familiarizado com o desenvolvimento de *api's* **REST**, e já tem certo domínio do Typescript além de saber configurar o projeto. Mas não se preocupe, você poderá consultar o código deste artigo.
+Eu vou considerar que você já está familiarizado com o desenvolvimento de *api's* **REST**, já conhece o Typescript e sabe configurar o projeto. Mas não se preocupe, você poderá consultar o código deste artigo.
 
-Caso esteja utilizando o vscode, recomendo fortemente que você instale as extensões: 
+Caso esteja utilizando o vscode, recomendo que você instale as extensões: 
 **GraphQL: Language Feature Support** e **GraphQL: Syntax Highlighting**
-Ajudará no desenvolvimento e tipagem.
+Ajudará no desenvolvimento.
 
 <h1>Instalando os pacotes</h1>
 
@@ -22,13 +22,13 @@ Começe seu projeto instalando os pacotes:
 
 <img src="https://i.imgur.com/i45xZs6.png" />
 
-O pacote **apollo-server-core** não é necessário para rodar o projeto, será útil aqui para utilizarmos o plugin *ApolloServerPluginLandingPageGraphQLPlayground*.
+O pacote **apollo-server-core** não é necessário para rodar o projeto, será útil aqui para utilizarmos o plugin *GraphQLPlayground*.
 
 <h1>Estrutura inicial</h1>
 
 <img src="https://i.imgur.com/i45xZs6.png" />
 
-No index começe importando os pacotes no seu projeto:
+No index importe os pacotes:
 ```js
 import { gql, ApolloServer } from "apollo-server";
 import { ApolloServerPluginLandingPageGraphQLPlayground as Playground } from "apollo-server-core";
@@ -36,14 +36,14 @@ import { ApolloServerPluginLandingPageGraphQLPlayground as Playground } from "ap
 
 <h1>typeDefs</h1>
 Basicamente, typeDefs é a definição do schema "tipos" que existirão nas respostas na sua API. Clique <a href="https://graphql.org/learn/schema/">aqui</a> para saber mais sobre os schemas do GraphQL.
-
+<br/>
 <img src="https://i.imgur.com/BGUdeTz.png" />
 
 Logo acima estamos declarando um novo tipo de *'endpoint'* na sua api, do tipo **Query** ( consulta ) que obrigatoriamente retorna um dado do tipo *string*
 
 <h1>resolvers</h1>
 Simplificadamente, os resolvers "resolvem" suas chamadas da API. É no objeto resolvers que você irá declarar as funções que retornarão os dados solicitados.
-
+<br/>
 <img src="https://imgur.com/FAsYkq7.png" />
 
 Logo acima descreve que dentro das chamadas do tipo **Query** temos um resolver de nome **hello** que irá retornar uma *string* **"Olá futuro sênior !"**
@@ -56,7 +56,7 @@ Vamos fazer isso rodar e ver o que acontece.
 
 <img src="https://i.imgur.com/E5SWteS.png" />
 
-O ApolloServer usa a porta 4000 por padrão. Você pode usar outra porta passando como parâmetro no objeto listen, como no exemplo acima. Agora rode o projeto e abra seu navegador em localhost:5000 e veja a mágica acontecer !
+O ApolloServer usa a porta 4000 por padrão, mas você pode usar outra porta como no exemplo acima. Agora rode o projeto e abra seu navegador na url e veja a mágica acontecer !
 
 <h1>Explicando o ApolloPlayground</h1>
 
@@ -83,8 +83,6 @@ Na pasta schemas, crie o arquivo hello.graphql
 
 <img src="https://i.imgur.com/Sve9P8y.png" />
 
-Caso tenha instalado as extensões que recomendei logo acima, a sintaxe do graphql será reconhecida pelo vscode.
-
 Dentro da pasta resolvers:
 
 **hello.ts**
@@ -103,7 +101,6 @@ Perceba que nada mudou no nosso Playground, ainda conseguimos fazer a mesma quer
 
 Lembrando que existem outras formas de organizar as entidades do seu projeto, fique a vontade para implementar da forma que preferir.
 
-Ah! Já estava esquecendo do nosso typedefs:
 Lembra que criamos o *hello.graphql* em **schemas** ?
 
 Agora precisamos implementar ele no nosso sistema. Existem bibliotecas externas que fazem o que irei demonstrar a seguir, mas acho que por enquanto essa é uma boa solução, e vai te ajudar a manter o código bem organizado:
@@ -230,11 +227,13 @@ Suponha que temos uma tabela de veículos em nosso banco de dados:
 E agora, como fazemos para relacionar esses veículos com os nossos usuários ?
 Primeiro vamos criar o tipo **Vehicle** em **schemas** *vehicles.graphql*
 
+<img src="https://i.imgur.com/1x1fTyK.png" />
+
 Depois vamos adicionar o campo no tipo **User**:
 
 <img src="https://i.imgur.com/s2qeoei.png" />
 
-Não esqueça de adicionar o *vehicles.graphql* no seu array de schemas, caso contrário irá receber um erro, pois o tipo **Vehicle** não está presente ( neste exemplo ) no arquivo *users.graphql*. Mas fique a vontade para definir o tipo lá caso ache que faz mais sentido pra você.
+Não esqueça de adicionar o *vehicles.graphql* no seu array de schemas, caso contrário irá receber um erro, pois o tipo **Vehicle** não está presente ( neste exemplo ) no arquivo *users.graphql*.
 
 Agora, basta adicionar o campo vehicle na nossa lista de usuários:
 
@@ -372,7 +371,6 @@ Tente passar um tipo diferente como variável e veja o que acontece !
 
 <h1>O Type Input</h1>
 
-
 Podemos agrupar os dados de uma mutation dentro de um tipo especial chamado **input**
 Mas qual é o problema que isso resolve ? Suponha que queremos *atualizar* os nossos veículos:
 
@@ -387,7 +385,7 @@ Criamos um novo tipo **input**:
 
 <img src="https://imgur.com/8rCGJmK.png" />
 
-E agora atualizamos o nosso tipo `Mutation` em typeDefs:
+E agora atualizamos o nosso tipo Mutation em typeDefs:
 
 <img src="https://i.imgur.com/WwKe0Ft.png" />
 
