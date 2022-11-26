@@ -394,7 +394,7 @@ E agora atualizamos o nosso tipo `Mutation` em typeDefs:
 Desta forma agrupamos todos os dados que precisamos no tipo **input vehicleData**
 Mas agora precisamos atualizar nosso resolver:
 
-<img src="https://imgur.com/wFtbwqH" />
+<img src="https://imgur.com/wFtbwqH.png" />
 
 Agora recebemos um objeto **data** como argumento em nosso resolver
 Uma modificação também será nescessária ao escrever nossa mutation:
