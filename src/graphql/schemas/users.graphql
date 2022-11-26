@@ -1,0 +1,28 @@
+type User {
+  id: ID!
+  name: String!
+  age: Int!
+  email: String
+  isDeveloper: Boolean!
+  stack: [Stack]
+  vehicle: Vehicle!
+  profile: Profiles! # bem aqui
+}
+
+enum Profiles {
+  USER
+  ADMIN
+}
+
+type Stack {
+  name: String!
+  score: Float!
+}
+
+type Query {
+  listDevelopers: [User!]!
+}
+
+type Query {
+  getDev(id: Int): User
+}

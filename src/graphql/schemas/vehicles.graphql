@@ -1,0 +1,15 @@
+type Vehicle {
+  id: ID!
+  model: String!
+  year: Int!
+}
+
+input vehicleData {
+  model: String!
+  year: Int!
+}
+
+type Mutation {
+  createVehicle(data: vehicleData): Vehicle!
+  updateVehicle(id: ID!, data: vehicleData): Vehicle! # precisamos do id para atualizar
+}
