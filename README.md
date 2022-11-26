@@ -20,11 +20,7 @@ Ajudará no desenvolvimento e tipagem.
 
 Começe seu projeto instalando os pacotes:
 
-```js
-graphql
-apollo-server
-apollo-server-core
-```
+<img src="https://i.imgur.com/i45xZs6.png" />
 
 O pacote **apollo-server-core** não é necessário para rodar o projeto, será útil aqui para utilizarmos o plugin *ApolloServerPluginLandingPageGraphQLPlayground*.
 
@@ -41,26 +37,14 @@ import { ApolloServerPluginLandingPageGraphQLPlayground as Playground } from "ap
 <h1>typeDefs</h1>
 Basicamente, typeDefs é a definição do schema "tipos" que existirão nas respostas na sua API. Clique <a href="https://graphql.org/learn/schema/">aqui</a> para saber mais sobre os schemas do GraphQL.
 
-```js
-const typeDefs = gql`
+<img src="https://i.imgur.com/BGUdeTz.png" />
 
-  type Query {
-    hello: String!
-  }
-`;
-```
 Logo acima estamos declarando um novo tipo de *'endpoint'* na sua api, do tipo **Query** ( consulta ) que obrigatoriamente retorna um dado do tipo *string*
 
 <h1>resolvers</h1>
 Simplificadamente, os resolvers "resolvem" suas chamadas da API. É no objeto resolvers que você irá declarar as funções que retornarão os dados solicitados.
 
-```js
-const resolvers = {
-  Query: {
-    hello: () => "Olá futuro sênior !"
-  }
-};
-```
+<img src="https://imgur.com/FAsYkq7.png" />
 
 Logo acima descreve que dentro das chamadas do tipo **Query** temos um resolver de nome **hello** que irá retornar uma *string* **"Olá futuro sênior !"**
 
@@ -70,15 +54,7 @@ Vamos fazer isso rodar e ver o que acontece.
 
 <h1>Instânciando um servidor</h1>
 
-```js
-const server = new ApolloServer({ 
-    typeDefs, 
-    resolvers, 
-    plugins: [Playground()] // opcional, remova e veja o que acontece !
-});
-
-server.listen(5000).then(({ url }) => console.log("server is running at " + url)); // http://localhost:5000/
-```
+<img src="https://i.imgur.com/E5SWteS.png" />
 
 O ApolloServer usa a porta 4000 por padrão. Você pode usar outra porta passando como parâmetro no objeto listen, como no exemplo acima. Agora rode o projeto e abra seu navegador em localhost:5000 e veja a mágica acontecer !
 
@@ -105,42 +81,21 @@ schemas, typedefs e resolvers.
 
 Na pasta schemas, crie o arquivo hello.graphql
 
-```graphql
-type Query {
-  hello: String!
-}
-```
+<img src="https://i.imgur.com/Sve9P8y.png" />
+
 Caso tenha instalado as extensões que recomendei logo acima, a sintaxe do graphql será reconhecida pelo vscode.
 
 Dentro da pasta resolvers:
 
 **hello.ts**
-```js
-const hello = {
-  hello: () => "Olá futuro sênior !",
-};
-
-export default hello;
-```
+<img src="https://i.imgur.com/TOl0vQk.png" />
 
 **index.ts**
-```js
-import hello from "./hello.js";
-
-const resolvers = {
-  Query: {
-    ...hello,
-  },
-};
-
-export default resolvers;
-```
+<img src="https://i.imgur.com/BanXCmH.png" />
 
 Agora importe e subistitua o resolver no seu projeto:
 
-```js
-import resolvers from "./graphql/resolvers/index.js";
-```
+<img src="https://i.imgur.com/vEGziOn.png" />
 
 Perceba que nada mudou no nosso Playground, ainda conseguimos fazer a mesma query e a mesma continua retornando o mesmo resultado. O que fizemos foi organizar tudo em uma nova estrutura, para manter o código legível, escalável e de fácil manutenção.
 
@@ -182,71 +137,23 @@ E assim ficou nosso index.ts em **src**
 Até agora você deve ta se perguntando, pra que gastar tempo estudando esse tal de GraphQL ? Qual é o problema que ele resolve, quais são suas vantagens em relação a arquitetura REST. Bom, a partir de agora essas vantagens irão ficar bem claras.
 
 Primeiro, crie a pasta **db** em **src**, o arquivo *db.ts* e popule ela com os seguintes dados:
-```js
-const users = [
-  {
-    id: 0,
-    name: "Devinho",
-    age: 18,
-    email: "devinho@bug.com",
-    isDeveloper: true,
-  },
-  {
-    id: 1,
-    name: "Juninho",
-    age: 20,
-    email: "juninho@dev.com",
-    isDeveloper: true,
-  },
-  {
-    id: 2,
-    name: "Fulaninho",
-    age: 99,
-    email: "fulano@old.com",
-    isDeveloper: false,
-  },
-];
 
-const database = {
-  users,
-};
-
-export default database;
-```
+<img src="https://i.imgur.com/t4QA5xt.png" />
 
 Agora que temos esse "banco de dados" improvisado, como faríamos uma consulta que retorne somente o nome dos usuários ?
 
 Primeiramente, vamos definir nossa nova consulta:
 Em **schemas** vamos criar o arquivo *users.graphql* e criar os tipos:
 
-```js
-type User {
-  id: ID!
-  name: String!
-  age: Int!
-  email: String!
-  isDeveloper: Boolean!
-}
+<img src="https://i.imgur.com/l6mcjr0.png" />
 
-type Query {
-  listDevelopers: [User!]!
-}
-``` 
 Primeiramente criamos o tipo **User**, que possui todos os campos obrigatórios 👉 **!**
 Também definimos nossa query *listDevelopers* que retorna obrigatoriamente um array de User.
 
 Agora, precisamos resolver essa query.
 Crie um novo arquivo em **resolvers** *users.ts*
 
-```js
-import database from "../../db/db.js";
-
-const listDevs = {
-  listDevelopers: () => database.users,
-};
-
-export default listDevs;
-``` 
+<img src="https://i.imgur.com/wNwaQo6.png" />
 
 Aqui está claro, estamos importando nosso "banco de dados", e resolvendo nossa chamada dizendo que o retorno dela é nosso array de usuários.
 
@@ -273,61 +180,24 @@ Até agora este foi um tutorial delicinha, bem mastigadinho pra você entender e
 
 Vamos adicionar um novo array em nosso banco de dados:
 
-```js
-const stackList = [
-  { name: "Typescript", score: 1.1 },
-  { name: "NodeJs", score: 1.2 },
-  { name: "PostgreSQL", score: 1.5 },
-  { name: "Prisma", score: 1.3 },
-  { name: "React", score: 0.9 },
-  { name: "GraphQL", score: 2.1 },
-];
-```
+<img src="https://i.imgur.com/U7KFi7U.png" />
 
 E agora, como podemos associar essas informações com os nossos usuários ? Bom, existem algumas formas de fazer isso, vamos ver o primeiro exemplo:
 
 Defina o tipo Stack no schema users.graphql :
 
-```graphql
-type Stack {
-  name: String!
-  score: Float!
-}
-```
+<img src="https://i.imgur.com/SRtAmTB.png" />
 
 Adicione no tipo User:
 
-```graphql
-type User {
-  id: ID!
-  name: String!
-  age: Int!
-  email: String
-  isDeveloper: Boolean!
-  stack: [Stack]
-}
-```
+<img src="https://i.imgur.com/8R1zuQO.png" />
 
 E por fim, adicionamos a nossa lista nas propriedades dos nossos usuários:
 
-```js
-const devinhoStackList = stackList.slice(0, 2);
-
-const users = [
-  {
-    id: 0,
-    name: "Devinho",
-    age: 18,
-    email: "devinho@bug.com",
-    isDeveloper: true,
-    stack: devinhoStackList // bem aqui
-  },
-  // ...
-];
-```
-
+<img src="https://i.imgur.com/9piuQTh.png" />
 
 Agora podemos fazer consultas e trazer os dados do nosso usuário e suas tecnologias:
+
 <img src="https://i.imgur.com/P9T7jWT.png" />
 
 <h1>Arguments</h1>
@@ -337,24 +207,11 @@ Arguments são parâmetros que podem ser passados numa consulta, para obter um d
 Podemos criar um novo arquivo schema.graphql para definir nossa query, ou colocar no arquivo users.graphql, fique a vontade para organizar seus dados como quiser. 
 Só não esqueça de adicionar no array da função build, caso crie um novo arquivo.
 
-```graphql
-type Query {
-  getDev(id: Int): User
-}
-``` 
+<img src="https://i.imgur.com/tEPFaw2.png" />
 
 Já nos resolvers, recebemos alguns parâmetros. Neste exemplo exploraremos somente o parâmetro args. Caso queira entender melhor sobre, veja mais <a href="https://www.apollographql.com/docs/apollo-server/data/resolvers/#handling-arguments">aqui</a>
 
-
-```js
-import database from "../../db/db.js";
-
-const getDev = {
-  getDev: (_: any, { id }) => database.users.find((user) => user.id === id),
-};
-
-export default getDev;
-```
+<img src="https://i.imgur.com/0Odynz7.png" />
 
 Neste exemplo estamos fazendo *destructuring* em args e obtendo o **id** diretamente. 
 E claro, como boa prática poderíamos delegar essa responsabilidade de buscar o usuário para outra entidade em **services** e tratar lá suas regras de negócio por exemplo.
@@ -368,85 +225,30 @@ Não esqueça de importar e adicionar seu novo resolver **getDev** em **resolver
 O parâmetro parent é o primeiro parâmetro do *resolver*, e agora vamos ver um exemplo de como podemos utilizá-lo.
 Suponha que temos uma tabela de veículos em nosso banco de dados:
 
-```js
-const vehicles = [
-  { id: 0, model: "Opala", year: 1972 },
-  { id: 1, model: "Ômega", year: 1992 },
-  { id: 2, model: "Santana", year: 1994 },
-  { id: 3, model: "Gol GTI", year: 1990 },
-  { id: 4, model: "Maverick", year: 1970 },
-];
-```
+<img src="https://i.imgur.com/NsTkXbC.png" />
 
 E agora, como fazemos para relacionar esses veículos com os nossos usuários ?
 Primeiro vamos criar o tipo **Vehicle** em **schemas** *vehicles.graphql*
 
 Depois vamos adicionar o campo no tipo **User**:
 
-```graphql
-type User {
-  id: ID!
-  name: String!
-  age: Int!
-  email: String
-  isDeveloper: Boolean!
-  stack: [Stack]
-  vehicle: Vehicle!
-}
-```
+<img src="https://i.imgur.com/s2qeoei.png" />
 
 Não esqueça de adicionar o *vehicles.graphql* no seu array de schemas, caso contrário irá receber um erro, pois o tipo **Vehicle** não está presente ( neste exemplo ) no arquivo *users.graphql*. Mas fique a vontade para definir o tipo lá caso ache que faz mais sentido pra você.
 
 Agora, basta adicionar o campo vehicle na nossa lista de usuários:
 
-```js
-const users = [
-  {
-    id: 0,
-    name: "Devinho",
-    age: 18,
-    email: "devinho@bug.com",
-    isDeveloper: true,
-    stack: stackList.slice(0, 2),
-    vehicle: 1 // bem aqui
-  },
-  // ...
-];
-```
+<img src="https://i.imgur.com/pw5LEvl.png" />
 
 Porém, se tentarmos rodar essa query obtendo os dados do veículo receberemos um erro: **Cannot return null for non-nullable fields ...** Para resolver esse problema, teremos que "resolver" o tipo **User** nos resolvers:
 
 Crie o arquivo *user.ts* em **resolvers**:
 
-```js
-const UserResolver = {
-
-  User: { // nosso tipo User
-    vehicle(parent: { vehicle: any }) { // propriedade que queremos resolver ( vehicle )
-      console.log(parent.vehicle); // acessando a propriedade
-    },
-  },
-};
-
-export default UserResolver;
-
-```
+<img src="https://imgur.com/APnbZBA.png" />
 
 Perceba que dando um console.log no parâmetro parent, teremos todas as informações de user. Agora fica fácil:
 
-```js
-import database from "../../db/db.js";
-
-const UserResolver = {
-  User: {
-    vehicle: (user: { vehicle: number }) =>
-      database.vehicles.find((vehicle) => vehicle.id === user.vehicle),
-  },
-};
-
-export default UserResolver;
-
-```
+<img src="https://i.imgur.com/0lnOchk.png" />
 
 <img src="https://i.imgur.com/aJZVRV3.png" />
 
@@ -485,33 +287,9 @@ Você pode usar Enums para ajudar na tipagem dos dados da sua aplicação, veja 
 
 Por exemplo, supondo que nossos usuários possuem o campo **profile** que é uma string, como poderíamos "tipar" essa string para obtermos somente valores válidos ?
 
-```graphql
-enum Profiles {
-  USER
-  ADMIN
-}
+<img src="https://i.imgur.com/RqHsKjT.png" />
 
-type User {
-  id: ID!
-  name: String!
-  age: Int!
-  email: String
-  isDeveloper: Boolean!
-  stack: [Stack]
-  vehicle: Vehicle!
-  profile: Profiles! # bem aqui
-}
-
-```
-
-```js
-const users = [
-  {
-    id: 0,
-    ...
-    profile: "USER"
-  },
-```
+<img src="https://i.imgur.com/ubo2yHx.png" />
 
 Com isso nós tipamos a propriedade **profile** que só pode ser **USER** ou **ADMIN**
 Caso outro valor seja enviado lançará um erro na nossa query: **"Enum \"Profiles\" cannot represent value: ...**
@@ -545,14 +323,8 @@ Isso é necessário pois logo abaixo temos uma <i>condicional</i> que inclui em 
 
 Também existe uma outra diretiva chamada `@skip` que basicamente é a lógica inversa do `@include`. Você pode testar utilizando a query abaixo: 
 
-```js
-query skipQuery ($id: Int, $skipEmail: Boolean!) {
-  getDev(id: $id) {
-    name
-    email @skip(if: $skipEmail)
-  }
-}
-```
+<img src="https://i.imgur.com/kJRxtiS.png" />
+
 Você pode ver sobre directives com maior profundidade <a href="https://graphql.org/learn/queries/#directives">aqui</a> 
 
 <h1>Mutations</h1>
@@ -563,29 +335,11 @@ Declarando uma mutation:
 
 Vamos criar uma nova **mutation** em nosso schema que irá adicionar um novo veículo em nossa lista de veículos: ( em **schemas** / vehicles.graphql )
 
-```graphql
-type Mutation {
-  createVehicle(model: String!, year: Int!): Vehicle!
-}
-```
+<img src="https://i.imgur.com/IfejaTZ.png" />
 
 Agora iremos "resolver" essa mutation em **resolvers** / createVehicles.ts :
 
-```js
-import database from "../../db/db.js";
-
-const mutCreateVeh = {
-  
-  createVehicle(_: any, { model, year }) { // fazendo o destructuring em args
-    
-    const id = database.vehicles.length;
-    database.vehicles.push({ id, model, year }); // adiciona o novo veículo na lista
-    return database.vehicles[id]; // retorna o veículo adicionado
-  },
-};
-
-export default mutCreateVeh;
-```
+<img src="https://i.imgur.com/wRSKUbw.png" />
 
 Agora, importe sua **Mutation** em **resolvers** / index.ts :
 
@@ -622,12 +376,7 @@ Tente passar um tipo diferente como variável e veja o que acontece !
 Podemos agrupar os dados de uma mutation dentro de um tipo especial chamado **input**
 Mas qual é o problema que isso resolve ? Suponha que queremos *atualizar* os nossos veículos:
 
-```js
-  type Mutation {
-    createVehicle(model: String!, year: Int!): Vehicle!
-    updateVehicle(id: ID!, model: String!, year: Int!): Vehicle! # nova mutation
-  }
-```
+<img src="https://i.imgur.com/R13FPiK.png" />
 
 Perceberam que nas duas mutations estamos repetindo os campos **model** e **year** ?
 Neste caso não é um problema, pois a quantidade de dados são pequenos.
@@ -636,34 +385,16 @@ Mas isso pode se tornar um grande problema caso a quantidade de dados aumente.
 Então como resolvemos isso ?
 Criamos um novo tipo **input**:
 
-```graphql
-input vehicleData {
-  model: String!
-  year: Int!
-}
-```
-
+<img src="https://imgur.com/8rCGJmK.png" />
 
 E agora atualizamos o nosso tipo `Mutation` em typeDefs:
 
-```js
-type Mutation {
-  createVehicle(data: vehicleData): Vehicle!
-  updateVehicle(id: ID!, data: vehicleData): Vehicle! # precisamos do id para atualizar
-}
-```
-
+<img src="https://i.imgur.com/WwKe0Ft.png" />
 
 Desta forma agrupamos todos os dados que precisamos no tipo **input vehicleData**
 Mas agora precisamos atualizar nosso resolver:
 
-```js
-  // antes
-  createVehicle: (_: any, { model, year }) => // ....
-
-  // depois
-  createVehicle: (_: any, { data }) => createVehicleFunction(data.model, data.year),
-```
+<img src="https://imgur.com/wFtbwqH" />
 
 Agora recebemos um objeto **data** como argumento em nosso resolver
 Uma modificação também será nescessária ao escrever nossa mutation:
@@ -678,32 +409,11 @@ Vamos adicionar uma condicional na nossa mutation **createVehicle** para não ac
 
 Primeiro, vamos delegar essa responsabilidade para a função **registerVehicle**
 
-```js 
-import registerVehicle from "../../services/vehicles.js";
-
-const mutCreateVeh = {
-  createVehicle: (_: any, { data }) => registerVehicle(data.model, data.year),
-};
-
-export default mutCreateVeh;
-``` 
+<img src="https://i.imgur.com/3QuRfzc.png" />
 
 Em **services** / vehicles.ts temos:
 
-```js
-import database from "../db/db.js";
-
-export default function registerVehicle(model: string, year: number) {
-  const checkModel = database.vehicles.some(
-    (vehicle) => vehicle.model === model
-  );
-  if (checkModel) throw new Error("this model has already been registered");
-
-  const id = database.vehicles.length;
-  database.vehicles.push({ id, model, year });
-  return database.vehicles.find((vehicle) => vehicle.id === id);
-}
-```
+<img src="https://i.imgur.com/gBuYMxk.png" />
 
 Agora ao tentar adicionar um modelo que já existe em nosso sistema, um erro será lançado:
 
@@ -712,34 +422,15 @@ Agora ao tentar adicionar um modelo que já existe em nosso sistema, um erro ser
 Mas existe uma forma melhor de capturar e tratar esse erro, caso seja nescessário:
 Em **middlewares** / errorHandler.ts:
 
-```js
-const errorHandler = {
-  formatError: (err: { message: string }) => {
-    if (err.message.startsWith("this model has already been registered")) {
-      return new Error(err.message);
-    }
-  },
-};
+<img src="https://i.imgur.com/nhvigbp.png" />
 
-export default errorHandler;
-```
 Agora importamos nossa função: 
 
-```js
-import errorHandler from "./middlewares/errorHandler.js";
-
-const server = new ApolloServer({ 
-  typeDefs, 
-  resolvers, 
-  ...errorHandler, // podemos colocar diretamente aqui também
-  plugins: [Playground()]
-});
-```
+<img src="https://i.imgur.com/JXwYcp9.png" />
 
 Dessa forma nós "capturamos" o erro, e podemos trata-lo afim de não expormos dados sensíveis/desnecessários:
 
 <img src="https://i.imgur.com/3kIfmDM.png" />
-
 
 Bom, com isso espero ter te ajudado a iniciar seus estudos em GraphQL.
 
