@@ -1,6 +1,6 @@
 <h1>Bem vindo</h1>
 
-Olá pessoal, me chamo Lucas e gostaria de compartilhar com vocês um pouco do meu conhecimento em GraphQL. O objetivo desse artigo é ser um <b><i>quickly start</i></b> sobre como construir 'sua primeira api' com GraphQL.
+Olá pessoal, me chamo Lucas e gostaria de compartilhar com vocês um pouco do meu conhecimento em GraphQL. O objetivo desse artigo é ser um <b><i>quick start</i></b> sobre como construir 'sua primeira api' com GraphQL.
 
 Lembrando que não se trata de uma documentação, caso queira se aprofundar recomendo ler a <a href="https://graphql.org/learn/">documentação oficial</a>
 
